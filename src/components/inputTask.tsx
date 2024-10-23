@@ -1,8 +1,8 @@
-import React, { FC, useState, createContext } from "react";
+import React, { FC, useState, useContext, createContext } from "react";
 import styled from "styled-components";
 import FilterTask from "./filterTasks";
 
-export const ContextInput = createContext('');
+export const ContextInput = createContext({});
 
 const Wrap = styled.div`
 `
@@ -22,27 +22,28 @@ const WrapInputTask = styled.div`
 `
 
 const InputTask: FC = () => {
-  const [inputTask, setInputTask] = useState('');
-
+  const [inputTaskValue, setInputTask] = useState('');
+  const [addNewTask, setAddNewTask] = useState('')
 
   const inputAddTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTask(e.target.value)
-
   }
 
   const handleAddTask = () => {
-    console.log(inputTask);
-    setInputTask('')
+    if (inputTaskValue) {
+      setAddNewTask(inputTaskValue);
+      setInputTask('')
+    }
   }
 
   return (
-    <ContextInput.Provider value={inputTask}>
+    <ContextInput.Provider value={addNewTask}>
       <Wrap>
         <TitleS>Список задач</TitleS>
         <WrapInputTask>
           <input
             type="text"
-            value={inputTask}
+            value={inputTaskValue}
             placeholder="Введите задачу..."
             onChange={inputAddTask}
           />

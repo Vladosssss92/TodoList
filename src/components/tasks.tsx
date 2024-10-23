@@ -1,6 +1,6 @@
-import React, { useState, useContext, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 import styled from "styled-components";
-import ContextInput from "./inputTask";
+import { ContextInput } from "./inputTask";
 
 const WrapFilterTask = styled.div`
   display: flex;
@@ -9,30 +9,31 @@ const WrapFilterTask = styled.div`
 `
 
 const Tasks: FC = () => {
-  const [task, setTask] = useState(['число']);
-  // const context = useContext(ContextInput);
+  const [task, setTask] = useState([]);
+  const taskOutputContext = React.useContext(ContextInput);
 
-  // console.log(context);
-  const buttonClick = () => {
-    if (task) {
-      const arrayTask = [...task, '123'];
-      setTask(arrayTask)
-    }
-  }
+  useEffect(() => {
+    const arrayTask = [...task, taskOutputContext];
+    setTask(arrayTask);
+
+  }, [taskOutputContext])
+
   return (
     <>
       <WrapFilterTask>
         <ul>
           {task.map(elem => {
-            return (<li>
-              {elem}
-              <button>Изменить</button>
-              <button>Удалить</button>
-            </li>)
+            if (elem) {
+              return (
+                <li>
+                  <input type="checkbox"></input>
+                  {elem}
+                  <button>Изменить</button>
+                  <button>Удалить</button>
+                </li>)
+            }
           })}
         </ul>
-        <button onClick={buttonClick}>wwwww</button>
-
       </WrapFilterTask>
     </>
   )

@@ -55,7 +55,11 @@ const GlobalStyle = createGlobalStyle`
       border-radius: 4px;
       box-shadow: 0 0 14px 5px #88b3b8;
     }
+    
   }
+  p {
+      color: white;
+    }
 `
 
 function App() {
