@@ -1,8 +1,15 @@
-import React, { FC, useState, useContext, createContext } from "react";
+import React, { FC, useState, createContext } from "react";
 import styled from "styled-components";
 import FilterTask from "./filterTasks";
+import { v4 as uuidv4 } from 'uuid';
 
-export const ContextInput = createContext({});
+// interface contextTask {
+//   id: string,
+//   task: string,
+//   completed: boolean
+// }
+
+export const ContextInput = createContext({ id: '0', task: '', completed: false });
 
 const Wrap = styled.div`
 `
@@ -23,7 +30,7 @@ const WrapInputTask = styled.div`
 
 const InputTask: FC = () => {
   const [inputTaskValue, setInputTask] = useState('');
-  const [addNewTask, setAddNewTask] = useState('')
+  const [addNewTask, setAddNewTask] = useState({ id: '0', task: '', completed: false })
 
   const inputAddTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTask(e.target.value)
@@ -31,7 +38,7 @@ const InputTask: FC = () => {
 
   const handleAddTask = () => {
     if (inputTaskValue) {
-      setAddNewTask(inputTaskValue);
+      setAddNewTask({ id: uuidv4(), task: inputTaskValue, completed: false });
       setInputTask('')
     }
   }
@@ -49,8 +56,8 @@ const InputTask: FC = () => {
           />
           <button onClick={handleAddTask}>Добавить задачу</button>
         </WrapInputTask>
-        <FilterTask />
       </Wrap>
+      <FilterTask />
     </ContextInput.Provider>
   )
 }

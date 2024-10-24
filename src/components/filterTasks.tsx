@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 import Tasks from "./tasks";
 
@@ -10,14 +10,29 @@ const WrapFilterTask = styled.div`
 `
 
 const FilterTask: FC = () => {
+  const [showActiveTask, setshowActiveTask] = useState(true)
+  const showAllTasks = () => {
+    setshowActiveTask(true)
+    return showActiveTask
+  }
+
+  const showActiveTasks = ():boolean => {
+    setshowActiveTask(false)
+    return showActiveTask
+  }
+
+  const showCompletedTasks = () => {
+
+  }
+
   return (
     <>
       <WrapFilterTask>
-        <button>Показать все задачи</button>
-        <button>Показать активные задачи</button>
-        <button>Показать выполненные задачи</button>
+        <button onClick={showAllTasks}>Показать все задачи</button>
+        <button onClick={showActiveTasks}>Показать активные задачи</button>
+        <button onClick={showCompletedTasks}>Показать выполненные задачи</button>
       </WrapFilterTask>
-      <Tasks />
+      <Tasks allTasks={showActiveTask} activeTasks={showActiveTask} completedTasks={showCompletedTasks}/>
     </>
   )
 }
