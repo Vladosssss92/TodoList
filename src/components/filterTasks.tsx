@@ -1,22 +1,16 @@
 import React, { FC, useState } from "react";
-import styled from "styled-components";
 import Tasks from "./tasks";
-
-const WrapFilterTask = styled.div`
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin: 10px 0 10px 20px;
-`
+import { WrapFilterTask } from "../style/style";
 
 const FilterTask: FC = () => {
   const [showActiveTask, setshowActiveTask] = useState(true)
+
   const showAllTasks = () => {
     setshowActiveTask(true)
     return showActiveTask
   }
 
-  const showActiveTasks = ():boolean => {
+  const showActiveTasks = (): boolean => {
     setshowActiveTask(false)
     return showActiveTask
   }
@@ -32,7 +26,7 @@ const FilterTask: FC = () => {
         <button onClick={showActiveTasks}>Показать активные задачи</button>
         <button onClick={showCompletedTasks}>Показать выполненные задачи</button>
       </WrapFilterTask>
-      <Tasks allTasks={showActiveTask} activeTasks={showActiveTask} completedTasks={showCompletedTasks}/>
+      <Tasks allTasks={showActiveTask} activeTasks={showActiveTask} completedTasks={showCompletedTasks} />
     </>
   )
 }

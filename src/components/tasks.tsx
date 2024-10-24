@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
-import styled from "styled-components";
 import { ContextInput } from "./inputTask";
+import { WrapTask, Li } from "../style/style";
 
 interface Iprops {
   allTasks: boolean,
@@ -8,36 +8,30 @@ interface Iprops {
   completedTasks: () => void
 }
 
-let visibilityTask = 'block'
-
-const WrapFilterTask = styled.div`
-  display: flex;
-  gap: 15px;
-  margin: 10px 0 10px 20px;
-`
-const LiS = styled.li`
-  display: ${visibilityTask};
-`
-
 const Tasks: FC<Iprops> = ({ allTasks }) => {
   const taskOutputContext = React.useContext(ContextInput);
   const [taskArray, setTask] = useState([]);
+  const [inputTaskValue, setInputTask] = useState('');
 
-  if (allTasks) {
-    visibilityTask = "block"
-  } else {
-    visibilityTask = 'none'
-  }
-  console.log(LiS.componentStyle.rules);
-  console.log(visibilityTask);
   useEffect(() => {
     setTask([...taskArray, taskOutputContext]);
   }, [taskOutputContext])
 
-  const deleteTaskBurron = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const deleteTaskButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = e.target as HTMLButtonElement;
     const updatedArrayAfterDeletionTask = taskArray.filter((num, index) => index !== +eventTarget.id)
     setTask(updatedArrayAfterDeletionTask)
+  }
+
+  const editTaskButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const eventTarget = e.target as HTMLButtonElement
+    taskArray[eventTarget.id].editTask = true
+    setTask([...taskArray])
+    setInputTask(taskArray[+eventTarget.id].task)
+  }
+
+  const inputEditTask = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputTask(e.target.value);
   }
 
   const taskStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,25 +39,47 @@ const Tasks: FC<Iprops> = ({ allTasks }) => {
     setTask([...taskArray])
   }
 
+  const setTaskValue = (e) => {
+    const eventTarget = e.target as HTMLButtonElement;
+    if (e.key === 'Enter' || e.type === 'click') {
+      taskArray[eventTarget.id].task = inputTaskValue;
+      taskArray[eventTarget.id].editTask = false;
+      setTask([...taskArray])
+    }
+  }
+
+  const cancelSaving = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const eventTarget = e.target as HTMLButtonElement;
+    taskArray[eventTarget.id].editTask = false;
+    setTask([...taskArray])
+  }
   return (
     <>
-      <WrapFilterTask>
+      <WrapTask>
         <ul>
           {taskArray.map((elem, index) => {
-            if (elem.task) {
+            if (elem.task && !elem.editTask) {
               return (
-                <LiS key={elem.id}>
+                <Li key={elem.id}>
                   <label>
                     <input id={index.toString()} type="checkbox" checked={taskArray[index].completed} onChange={taskStatus} />
-                    {elem.task}
+                    <p>{elem.task}</p>
                   </label>
-                  <button>Изменить</button>
-                  <button id={index.toString()} onClick={deleteTaskBurron}>Удалить</button>
-                </LiS>)
+                  <button id={index.toString()} onClick={editTaskButton}>Изменить</button>
+                  <button id={index.toString()} onClick={deleteTaskButton}>Удалить</button>
+                </Li>)
+            }
+            if (elem.task && elem.editTask) {
+              return (
+                <Li key={elem.id}>
+                  <input id={index.toString()} value={inputTaskValue} onChange={inputEditTask} onKeyDown={setTaskValue} />
+                  <button id={index.toString()} onClick={cancelSaving}>Отменить</button>
+                  <button id={index.toString()} onClick={setTaskValue}>Сохранить</button>
+                </Li>)
             };
           })}
         </ul>
-      </WrapFilterTask>
+      </WrapTask>
     </>
   )
 
