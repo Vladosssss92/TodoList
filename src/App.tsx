@@ -1,15 +1,26 @@
-import React from 'react';
-import InputTask from './components/inputTask';
-import { GlobalStyle } from './style/style'
+import { useState } from 'react';
+import { GlobalStyle, TitleS } from './style/style'
+import { TasksFilter } from './components/TasksFilter';
+import { InputNewTask } from './components/InputNewTask';
+import { TasksList } from './components/TasksList';
 
-
+export interface ITask {
+  id: string;
+  task: string;
+  completed: boolean;
+  editTask: boolean;
+}
 
 function App() {
+  const [taskArray, setTaskArray] = useState<ITask[]>([]);
+
   return (
     <>
       <GlobalStyle />
-      <InputTask />
-      
+      <TitleS>Список задач</TitleS>
+      <InputNewTask setTaskArray={setTaskArray} />
+      <TasksFilter />
+      <TasksList setTaskArray={setTaskArray} taskArray={taskArray} />
     </>
   );
 }
