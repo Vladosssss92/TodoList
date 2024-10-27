@@ -11,16 +11,19 @@ export interface ITask {
   editTask: boolean;
 }
 
+
+
 function App() {
   const [taskArray, setTaskArray] = useState<ITask[]>([]);
+  const [filterTasks, setFilterTasks] = useState<'done' | 'all' | 'active'>('all');
 
   return (
     <>
       <GlobalStyle />
       <TitleS>Список задач</TitleS>
       <InputNewTask setTaskArray={setTaskArray} />
-      <TasksFilter />
-      <TasksList setTaskArray={setTaskArray} taskArray={taskArray} />
+      <TasksFilter setFilterTasks={setFilterTasks}/>
+      <TasksList setTaskArray={setTaskArray} taskArray={taskArray} filterTasks={filterTasks}/>
     </>
   );
 }

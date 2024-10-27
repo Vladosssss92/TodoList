@@ -5,21 +5,24 @@ import { ITask } from "../App";
 interface IProps {
   setTaskArray: Dispatch<SetStateAction<ITask[]>>;
   taskArray: ITask[];
+  filterTasks: 'done' | 'all' | 'active';
 }
 
-export const TasksList: FC<IProps> = ({ setTaskArray, taskArray }) => {
+export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) => {
   const [inputTaskValue, setInputTaskValue] = useState('');
 
   const deleteTaskButton = (id: string) => {
-    const updatedArrayAfterDeletionTask = taskArray.filter((element) => element.id !== id)
-    setTaskArray(updatedArrayAfterDeletionTask)
+    const updatedArray = taskArray.filter((element) => element.id !== id)
+    setTaskArray(updatedArray)
   }
 
   const editTaskButton = (id: string) => {
     const currentTask = taskArray.find((task) => task.id === id)
-    setInputTaskValue(currentTask.task)
+    setInputTaskValue(currentTask.task);
     setTaskArray(prev => {
       return prev.map((element) => {
+        console.log(element);
+        console.log(currentTask.task);
         if (element.id === id) {
           return {
             ...element, editTask: true
@@ -31,10 +34,11 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray }) => {
 
   const inputEditTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTaskValue(e.target.value);
+
   }
 
   const taskStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
-    taskArray[+e.target.id].completed = e.target.checked
+    taskArray[e.target.id].completed = e.target.checked
     setTaskArray([...taskArray])
   }
 
@@ -43,7 +47,7 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray }) => {
       return prev.map((element) => {
         if (element.id === id) {
           return {
-            ...element, editTask: false, task: inputTaskValue
+            ...element, editTask: false
           }
         } return element
       })
@@ -71,7 +75,17 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray }) => {
     }
   }
 
-  const formattedTaskArray = taskArray.filter((element) => element.task)
+  const formattedTaskArray = taskArray.filter((element) => {
+    switch (filterTasks) {
+      case 'done':
+        return element.completed;
+      case 'active':
+        return !element.completed;
+      default:
+        return element
+    }
+
+  })
   return (
     <>
       <WrapTask>

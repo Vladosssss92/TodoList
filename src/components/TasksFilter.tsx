@@ -1,30 +1,17 @@
-import React, { FC, useState } from "react";
+import React, { Dispatch, FC, SetStateAction } from "react";
 import { WrapFilterTask } from "../style/style";
 
+interface IProps {
+  setFilterTasks: Dispatch<SetStateAction<'done' | 'all' | 'active'>>;
+}
 
-export const TasksFilter: FC = () => {
-  const [showActiveTask, setshowActiveTask] = useState(true)
-
-  const showAllTasks = () => {
-    setshowActiveTask(true)
-    return showActiveTask
-  }
-
-  const showActiveTasks = (): boolean => {
-    setshowActiveTask(false)
-    return showActiveTask
-  }
-
-  const showCompletedTasks = () => {
-
-  }
-
+export const TasksFilter: FC<IProps> = ({ setFilterTasks }) => {
   return (
     <>
       <WrapFilterTask>
-        <button onClick={showAllTasks}>Показать все задачи</button>
-        <button onClick={showActiveTasks}>Показать активные задачи</button>
-        <button onClick={showCompletedTasks}>Показать выполненные задачи</button>
+        <button onClick={() => setFilterTasks('all')}>Показать все задачи</button>
+        <button onClick={() => setFilterTasks('active')}>Показать активные задачи</button>
+        <button onClick={() => setFilterTasks('done')}>Показать выполненные задачи</button>
       </WrapFilterTask>
     </>
   )
