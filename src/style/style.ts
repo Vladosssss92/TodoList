@@ -14,23 +14,26 @@ export const GlobalStyle = createGlobalStyle`
     color: #d0d0d0;
     font-size: 16px;
   }
-  p {
-      color: white;
-    }
+
   label {
     display: flex;
-    
   }
-`
-export const Task = styled.p`
-  padding: 8px;
 
+  input:checked + .task {
+    text-decoration: line-through;
+  }
+
+  .task {
+    padding: 8px;
+    color: white;
+  }
 `
 
 export const WrapFilterTask = styled.div`
   display: flex;
   gap: 15px;
-  /* margin: 10px 0 10px 20px; */
+  margin-left: 10px;
+  margin-right: 10px;
 `
 export const WrapTask = styled.div`
   display: flex;
@@ -56,9 +59,9 @@ export const TitleTasks = styled.h1`
   text-align: center;
   padding: 10px;
   `
-  
+
 export const Wrap = styled.div`
-  max-width: 60%;
+  max-width: 600px;
   margin: 0 auto;
   `
 
@@ -77,6 +80,8 @@ export const LiS = styled.li`
 `
 export const InputS = styled.input`
     width: 80%;
+    min-width: 180px;
+    max-width: 450px;
     padding: 5px;
     border-radius: 10px;
     border: 2px solid #2eb52e;

@@ -1,5 +1,5 @@
 import React, { FC, useState, Dispatch, SetStateAction } from "react";
-import { LiS, InputS, ButtonS, Task, WrapButtons } from "../style/style";
+import { LiS, InputS, ButtonS, WrapButtons } from "../style/style";
 import { ITask } from "../App";
 
 interface IProps {
@@ -93,7 +93,7 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
               <LiS key={element.id}>
                 <label>
                   <input id={index.toString()} type="checkbox" checked={element.completed} onChange={taskStatus} />
-                  <Task>{element.task}</Task>
+                  <p className="task">{element.task}</p>
                 </label>
                 <WrapButtons>
                   <ButtonS onClick={() => editTaskButton(element.id)}>Изменить</ButtonS>
