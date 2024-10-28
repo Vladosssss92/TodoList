@@ -35,9 +35,21 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
     setInputTaskValue(e.target.value);
   }
 
-  const taskStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
-    taskArray[e.target.id].completed = e.target.checked
-    setTaskArray([...taskArray])
+  const taskStatus = (id: string) => {
+    setTaskArray(prev => {
+      return prev.map((element) => {
+        if (element.id === id && element.completed) {
+          return {
+            ...element, completed: false
+          }
+        }
+        if (element.id === id && !element.completed) {
+          return {
+            ...element, completed: true
+          }
+        } return element
+      })
+    })
   }
 
   const setTaskValue = (id: string) => {
@@ -87,12 +99,12 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
   return (
     <>
       <ul>
-        {formattedTaskArray.map((element, index) => {
+        {formattedTaskArray.map((element) => {
           if (!element.editTask) {
             return (
               <LiS key={element.id}>
                 <label>
-                  <input id={index.toString()} type="checkbox" checked={element.completed} onChange={taskStatus} />
+                  <input type="checkbox" checked={element.completed} onChange={() => taskStatus(element.id)} />
                   <p className="task">{element.task}</p>
                 </label>
                 <WrapButtons>
