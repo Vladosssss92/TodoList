@@ -12,19 +12,22 @@ export const GlobalStyle = createGlobalStyle`
   ul, li {
     list-style: none;
     color: #d0d0d0;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   label {
     display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
   }
-
+  input {
+    width: 1.5rem;
+  }
   input:checked + .task {
     text-decoration: line-through;
   }
 
   .task {
-    padding: 8px;
     color: white;
   }
 `
@@ -81,28 +84,28 @@ export const LiS = styled.li`
 export const InputS = styled.input`
     width: 80%;
     min-width: 180px;
-    max-width: 450px;
+    max-width: 385px;
     padding: 5px;
     border-radius: 10px;
-    border: 2px solid #2eb52e;
+    border: 2px solid #35a9b3;
     color:gray;
     font-size: 15px;
     &:hover {
       box-shadow: 0 0 10px #88b3b8;
-      border: 2px solid #25e44b;
+      border: 2px solid #21d1c9;
     }
     &:focus {
       outline: none;
       color: #d9d9d9;
-      border: 2px solid #33ec45;
+      border: 2px solid #51e3dc;
     }
 `
 export const ButtonS = styled.button`
-    padding: 8px;
+    padding: 6px;
     cursor: pointer;
     border-radius: 10px;
     border: 2px solid #2eb52e;
-    font-size: 15px;
+    font-size: 12px;
     color: #adadad;
     &:disabled {
       cursor: not-allowed;
