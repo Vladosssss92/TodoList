@@ -1,6 +1,6 @@
 import React, { FC, useState, Dispatch, SetStateAction } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { Wrap, WrapInputTask } from "../style/style";
+import { ButtonS, InputS, WrapInputTask } from "../style/style";
 import { ITask } from "../App";
 
 interface IProps {
@@ -9,17 +9,20 @@ interface IProps {
 
 export const InputNewTask: FC<IProps> = ({ setTaskArray }) => {
   const [inputTaskValue, setInputTask] = useState('');
+
   const inputAddTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTask(e.target.value)
   }
 
   const handleAddTask = () => {
+    if (!inputTaskValue) return
     setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
     setInputTask('')
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Enter') {
+      if (!inputTaskValue) return
       setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
       setInputTask('')
     }
@@ -30,17 +33,15 @@ export const InputNewTask: FC<IProps> = ({ setTaskArray }) => {
 
 
   return (
-    <Wrap>
-      <WrapInputTask>
-        <input
-          type="text"
-          value={inputTaskValue}
-          placeholder="Введите задачу..."
-          onChange={inputAddTask}
-          onKeyDown={onKeyDown}
-        />
-        <button onClick={handleAddTask} >Добавить задачу</button>
-      </WrapInputTask>
-    </Wrap>
+    <WrapInputTask>
+      <InputS
+        type="text"
+        value={inputTaskValue}
+        placeholder="Введите задачу..."
+        onChange={inputAddTask}
+        onKeyDown={onKeyDown}
+      />
+      <ButtonS onClick={handleAddTask} >Добавить задачу</ButtonS>
+    </WrapInputTask>
   )
 }
