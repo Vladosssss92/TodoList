@@ -18,10 +18,22 @@ export const GlobalStyle = createGlobalStyle`
   button {
     padding: 5px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 7px;
     border: 2px solid #2eb52e;
     font-size: 20px;
     color: #adadad;
+    &:disabled {
+      cursor: not-allowed;
+      color: gray;
+      border: 2px solid #808080;
+      &:hover {
+        box-shadow: none;
+        border: 2px solid #808080;
+      }
+      &:active {
+        color: gray;
+      }
+    }
     &:hover {
     border: 2px solid #718b39df;
     box-shadow: 0 0 10px #88b3b8;
@@ -80,6 +92,13 @@ export const TitleS = styled.h1`
   padding: 10px;
 `
 
+export const TitleTasks = styled.h1`
+  color: #437443;
+  font-size: 30px;
+  text-align: center;
+  padding: 10px;
+`
+
 export const WrapInputTask = styled.div`
   display: flex;
   gap: 15px;
@@ -91,3 +110,5 @@ export const Li = styled.li`
   gap: 15px;
   padding: 10px;
 `
+
+

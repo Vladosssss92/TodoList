@@ -9,7 +9,6 @@ interface IProps {
 
 export const InputNewTask: FC<IProps> = ({ setTaskArray }) => {
   const [inputTaskValue, setInputTask] = useState('');
-
   const inputAddTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTask(e.target.value)
   }

@@ -21,8 +21,6 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
     setInputTaskValue(currentTask.task);
     setTaskArray(prev => {
       return prev.map((element) => {
-        console.log(element);
-        console.log(currentTask.task);
         if (element.id === id) {
           return {
             ...element, editTask: true
@@ -34,7 +32,6 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
 
   const inputEditTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTaskValue(e.target.value);
-
   }
 
   const taskStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +44,7 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
       return prev.map((element) => {
         if (element.id === id) {
           return {
-            ...element, editTask: false
+            ...element, editTask: false, task: inputTaskValue
           }
         } return element
       })
@@ -113,5 +110,4 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
       </WrapTask>
     </>
   )
-
 }
