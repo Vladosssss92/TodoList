@@ -57,7 +57,7 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
       return prev.map((element) => {
         if (element.id === id) {
           return {
-            ...element, editTask: false, task: inputTaskValue
+            ...element, editTask: false, task: inputTaskValue, completed: false
           }
         } return element
       })
