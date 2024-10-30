@@ -21,7 +21,6 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
     setInputTaskValue(currentTask.task);
     setTaskArray(prev => {
       return prev.map((element) => {
-        element.editTask = false
         if (element.id === id) {
           return {
             ...element, editTask: true
@@ -55,11 +54,22 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
   const setTaskValue = (id: string) => {
     setTaskArray(prev => {
       return prev.map((element) => {
-        if (element.id === id) {
+        if ((element.id === id && element.task !== inputTaskValue && inputTaskValue.trim())) {
           return {
             ...element, editTask: false, task: inputTaskValue, completed: false
           }
-        } return element
+        }
+        if (element.id === id && element.task !== inputTaskValue && !inputTaskValue.trim()) {
+          return {
+            ...element, editTask: false, completed: false
+          }
+        }
+        if (element.id === id) {
+          return {
+            ...element, editTask: false
+          }
+        }
+        return element
       })
     })
   }

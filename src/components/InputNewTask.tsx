@@ -15,22 +15,27 @@ export const InputNewTask: FC<IProps> = ({ setTaskArray }) => {
   }
 
   const handleAddTask = () => {
-    if (!inputTaskValue) return
-    setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
-    setInputTask('')
+    if (!inputTaskValue.trim()) {
+      setInputTask('')
+    } else {
+      setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
+      setInputTask('')
+    }
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Enter') {
-      if (!inputTaskValue) return
-      setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
-      setInputTask('')
+      if (!inputTaskValue.trim()) {
+        setInputTask('')
+      } else {
+        setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
+        setInputTask('')
+      }
     }
     if (e.key === 'Escape') {
       setInputTask('')
     }
   }
-
 
   return (
     <WrapInputTask>
