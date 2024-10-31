@@ -13,7 +13,10 @@ export interface ITask {
 }
 
 function App() {
-  const [taskArray, setTaskArray] = useState<ITask[]>(JSON.parse(localStorage.getItem('tasks')) || []);
+  const [taskArray, setTaskArray] = useState<ITask[]>(() => {
+    return JSON.parse(localStorage.getItem('tasks')) || []
+  });
+
   const [filterTasks, setFilterTasks] = useState<'done' | 'all' | 'active'>('all');
 
   localStorage.setItem('tasks', JSON.stringify(taskArray))
@@ -25,7 +28,7 @@ function App() {
         <TitleS>Список задач</TitleS>
         <InputNewTask setTaskArray={setTaskArray} />
         <TasksFilter setFilterTasks={setFilterTasks} />
-        <NumberOfTasks taskArray={taskArray}></NumberOfTasks>
+        <NumberOfTasks taskArray={taskArray} />
         <TasksList setTaskArray={setTaskArray} taskArray={taskArray} filterTasks={filterTasks} />
       </Wrap>
     </>

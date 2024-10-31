@@ -24,13 +24,11 @@ export const InputNewTask: FC<IProps> = ({ setTaskArray }) => {
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === 'Enter') {
-      if (!inputTaskValue.trim()) {
-        setInputTask('')
-      } else {
-        setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
-        setInputTask('')
-      }
+    if (e.key === 'Enter' && !inputTaskValue.trim()) {
+      setInputTask('')
+    } else if (e.key === 'Enter') {
+      setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
+      setInputTask('')
     }
     if (e.key === 'Escape') {
       setInputTask('')

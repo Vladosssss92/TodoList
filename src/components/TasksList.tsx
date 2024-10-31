@@ -59,12 +59,7 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
             ...element, editTask: false, task: inputTaskValue, completed: false
           }
         }
-        if (element.id === id && element.task !== inputTaskValue && !inputTaskValue.trim()) {
-          return {
-            ...element, editTask: false
-          }
-        }
-        if (element.id === id) {
+        if ((element.id === id && !inputTaskValue.trim()) || element.id === id) {
           return {
             ...element, editTask: false
           }
@@ -114,22 +109,40 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
             return (
               <LiS key={element.id}>
                 <label>
-                  <input type="checkbox" checked={element.completed} onChange={() => taskStatus(element.id)} className="checkbox" />
+                  <input
+                    type="checkbox" checked={element.completed}
+                    onChange={() => taskStatus(element.id)}
+                    className="checkbox" />
                   <span className="custom-checkbox"></span>
                   <p className="task">{element.task}</p>
                 </label>
                 <WrapButtons>
-                  <ButtonS onClick={() => editTaskButton(element.id)}>Изменить</ButtonS>
-                  <ButtonS onClick={() => deleteTaskButton(element.id)}>Удалить</ButtonS>
+                  <ButtonS
+                    onClick={() => editTaskButton(element.id)}>
+                    Изменить
+                  </ButtonS>
+                  <ButtonS
+                    onClick={() => deleteTaskButton(element.id)}>
+                    Удалить
+                  </ButtonS>
                 </WrapButtons>
               </LiS>)
           }
           return (
             <LiS key={element.id}>
-              <InputS value={inputTaskValue} onChange={inputEditTask} onKeyDown={(e) => onKeyDown(e, element.id)} />
+              <InputS
+                value={inputTaskValue}
+                onChange={inputEditTask}
+                onKeyDown={(e) => onKeyDown(e, element.id)} />
               <WrapButtons>
-                <ButtonS onClick={() => cancelSaving(element.id)}>Отменить</ButtonS>
-                <ButtonS onClick={() => setTaskValue(element.id)}>Сохранить</ButtonS>
+                <ButtonS
+                  onClick={() => cancelSaving(element.id)}>
+                  Отменить
+                </ButtonS>
+                <ButtonS
+                  onClick={() => setTaskValue(element.id)}>
+                  Сохранить
+                </ButtonS>
               </WrapButtons>
             </LiS>)
         })}
