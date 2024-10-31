@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
+import check from "./image/check.svg";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -8,29 +9,92 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     background-color: #131313;
   }
-
+  
   ul, li {
     list-style: none;
     color: #d0d0d0;
-    font-size: 14px;
+    font-size: 16px;
   }
-
+  
   label {
     display: flex;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-  input {
-    width: 1.5rem;
-  }
-  input:checked + .task {
-    text-decoration: line-through;
+    gap: 8px;
   }
 
-  .task {
-    color: white;
+  .checkbox {
+    width: 0;
+    height: 0;
+    position: absolute;
   }
-`
+
+  .checkbox:focus + .custom-checkbox {
+    box-shadow: 0 0 4px #88b3b8;
+    border: 2px solid #21d1c9;
+  } 
+  .checkbox:hover + .custom-checkbox {
+    box-shadow: 0 0 10px #88b3b8;
+    border: 2px solid #21d1c9;
+  } 
+  
+
+  
+  .task {
+    color: #d9d9d9;
+    padding-top: 2px;
+  }
+  .custom-checkbox {
+    display: inline-block;
+    position: relative;
+    width: 26px;
+    height: 26px;
+    background-color: #000000;
+    border-radius: 50%;
+    border: 2px solid  #88b3b8;
+    vertical-align: sub;
+  }
+  
+  .custom-checkbox::before {
+    content: '';
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #2eb52e;
+    background-image: url(${check});
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 1%;
+    left: 2%;
+    transform: scale(0);
+    transition: 70ms ease-in;
+  }
+  
+  .checkbox:checked + .custom-checkbox::before { 
+    transform: scale(1);
+  }
+  .checkbox:checked ~ .task {
+    text-decoration: line-through;
+  }
+  `
+  export const InputS = styled.input`
+      width: 80%;
+      min-width: 180px;
+      max-width: 385px;
+      padding: 5px;
+      border-radius: 10px;
+      border: 2px solid #35a9b3;
+      color:gray;
+      font-size: 15px;
+      &:hover {
+        box-shadow: 0 0 10px #88b3b8;
+        border: 2px solid #21d1c9;
+      }
+      &:focus {
+        outline: none;
+        color: #d9d9d9;
+        border: 2px solid #51e3dc;
+      }
+  `
 
 export const WrapFilterTask = styled.div`
   display: flex;
@@ -81,25 +145,6 @@ export const LiS = styled.li`
   gap: 5px;
   padding: 10px;
 `
-export const InputS = styled.input`
-    width: 80%;
-    min-width: 180px;
-    max-width: 385px;
-    padding: 5px;
-    border-radius: 10px;
-    border: 2px solid #35a9b3;
-    color:gray;
-    font-size: 15px;
-    &:hover {
-      box-shadow: 0 0 10px #88b3b8;
-      border: 2px solid #21d1c9;
-    }
-    &:focus {
-      outline: none;
-      color: #d9d9d9;
-      border: 2px solid #51e3dc;
-    }
-`
 export const ButtonS = styled.button`
     padding: 6px;
     cursor: pointer;
@@ -115,19 +160,15 @@ export const ButtonS = styled.button`
         box-shadow: none;
         border: 2px solid #808080;
       }
-      &:active {
-        color: gray;
-      }
     }
     &:hover {
-    border: 2px solid #25e44b;
-    box-shadow: 0 0 10px #88b3b8;
+      border: 2px solid #25e44b;
+      box-shadow: 0 0 10px #88b3b8;
     }
     &:active {
-    box-shadow: 
-    0 0 10px 5px #88b3b8;
-    border: 2px solid #2dd906df;
-    color: #d9d9d9;
-    }
-  
+      box-shadow: 
+      0 0 10px 5px #88b3b8;
+      border: 2px solid #2dd906df;
+      color: #d9d9d9;
+    } 
 `

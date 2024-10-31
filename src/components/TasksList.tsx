@@ -61,7 +61,7 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
         }
         if (element.id === id && element.task !== inputTaskValue && !inputTaskValue.trim()) {
           return {
-            ...element, editTask: false, completed: false
+            ...element, editTask: false
           }
         }
         if (element.id === id) {
@@ -114,7 +114,8 @@ export const TasksList: FC<IProps> = ({ setTaskArray, taskArray, filterTasks }) 
             return (
               <LiS key={element.id}>
                 <label>
-                  <input type="checkbox" checked={element.completed} onChange={() => taskStatus(element.id)} />
+                  <input type="checkbox" checked={element.completed} onChange={() => taskStatus(element.id)} className="checkbox" />
+                  <span className="custom-checkbox"></span>
                   <p className="task">{element.task}</p>
                 </label>
                 <WrapButtons>
