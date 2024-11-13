@@ -1,14 +1,13 @@
-import React, { FC, useState, Dispatch, SetStateAction } from "react";
+import React, { FC, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { ButtonS, InputS, WrapInputTask } from "../style/style";
-import { ITask } from "../App";
+import { useDispatch } from "react-redux";
+import { addNewTask } from "./store";
 
-interface IProps {
-  setTaskArray: Dispatch<SetStateAction<ITask[]>>;
-}
 
-export const InputNewTask: FC<IProps> = ({ setTaskArray }) => {
+export const InputNewTask: FC = () => {
   const [inputTaskValue, setInputTask] = useState('');
+  const dispatch = useDispatch()
 
   const inputAddTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTask(e.target.value)
@@ -18,7 +17,7 @@ export const InputNewTask: FC<IProps> = ({ setTaskArray }) => {
     if (!inputTaskValue.trim()) {
       setInputTask('')
     } else {
-      setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
+      dispatch(addNewTask({ id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }));
       setInputTask('')
     }
   }
@@ -27,7 +26,7 @@ export const InputNewTask: FC<IProps> = ({ setTaskArray }) => {
     if (e.key === 'Enter' && !inputTaskValue.trim()) {
       setInputTask('')
     } else if (e.key === 'Enter') {
-      setTaskArray(prev => [...prev, { id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }]);
+      dispatch(addNewTask({ id: uuidv4(), task: inputTaskValue, completed: false, editTask: false }));
       setInputTask('')
     }
     if (e.key === 'Escape') {

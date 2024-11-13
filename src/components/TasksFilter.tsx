@@ -1,23 +1,25 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 import { ButtonS, WrapFilterTask } from "../style/style";
+import { useDispatch } from "react-redux";
+import { setFilterTasks } from "./store";
+import { AppDispatch } from "./types";
 
-interface IProps {
-  setFilterTasks: Dispatch<SetStateAction<'done' | 'all' | 'active'>>;
-}
 
-export const TasksFilter: FC<IProps> = ({ setFilterTasks }) => {
+export const TasksFilter: FC = () => {
   const [disableButton, setDisableButton] = useState({
     all: false,
     done: false,
     active: false,
   })
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <>
       <WrapFilterTask>
         <ButtonS
           onClick={() => {
-            setFilterTasks('all');
+            // setFilterTasks('all');
+            dispatch(setFilterTasks('all'));
             setDisableButton({ all: true, done: false, active: false, })
           }}
           disabled={disableButton.all}>
@@ -25,14 +27,18 @@ export const TasksFilter: FC<IProps> = ({ setFilterTasks }) => {
         </ButtonS>
         <ButtonS
           onClick={() => {
-            setFilterTasks('active');
+            // setFilterTasks();
+            dispatch(setFilterTasks('active'));
             setDisableButton({ all: false, done: false, active: true, })
           }}
           disabled={disableButton.active} >
           Показать активные задачи
         </ButtonS>
         <ButtonS
-          onClick={() => { setFilterTasks('done'); setDisableButton({ all: false, done: true, active: false, }) }}
+          onClick={() => {
+            dispatch(setFilterTasks('done'));
+            setDisableButton({ all: false, done: true, active: false, })
+          }}
           disabled={disableButton.done}>
           Показать выполненные задачи
         </ButtonS>

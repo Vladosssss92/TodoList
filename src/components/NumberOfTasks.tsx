@@ -1,15 +1,14 @@
 import { FC } from "react"
-import { ITask } from "../App"
 import { TitleTasks } from "../style/style";
+import { IRootState } from "./types";
+import { useSelector } from "react-redux";
 
-interface IProps {
-  taskArray: ITask[];
-}
 
-export const NumberOfTasks: FC<IProps> = ({ taskArray }) => {
+export const NumberOfTasks: FC = () => {
+  const taskArr = useSelector((state: IRootState) => state.tasks.newTask)
   return (
     <TitleTasks>
-      Количество задач - {taskArray.length}
+      Количество задач - {taskArr.length}
     </TitleTasks>
   )
 }
