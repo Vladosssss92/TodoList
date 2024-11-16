@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/TodoList/static/js/main.bd0da2bb.js",
+    "main.js": "/TodoList/static/js/main.8e910798.js",
     "static/media/check.svg": "/TodoList/static/media/check.b5c9bb86163f7628de072dbac5479e3d.svg",
     "index.html": "/TodoList/index.html",
-    "main.bd0da2bb.js.map": "/TodoList/static/js/main.bd0da2bb.js.map"
+    "main.8e910798.js.map": "/TodoList/static/js/main.8e910798.js.map"
   },
   "entrypoints": [
-    "static/js/main.bd0da2bb.js"
+    "static/js/main.8e910798.js"
   ]
 }
