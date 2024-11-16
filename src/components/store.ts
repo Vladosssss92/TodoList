@@ -15,16 +15,14 @@ const loadFromLocalStorage = () => {
 
 const saveToLocalStorage = (state: IStoreTask) => {
   try {
-    const saveLocalStorageData = JSON.stringify(state);
+    const saveLocalStorageData = JSON.stringify(state.newTask);
     localStorage.setItem("tasks", saveLocalStorageData);
   } catch (error) {
     console.log("Ошибка сохранения в локальное хранилище ", error);
   }
 };
 
-const dataFromLocalStorage = loadFromLocalStorage();
-
-const initialState = { newTask: dataFromLocalStorage || [] };
+const initialState: IStoreTask = { newTask: loadFromLocalStorage() || [] };
 
 const taskSlice = createSlice({
   name: "newTask",
@@ -61,6 +59,4 @@ export const store = configureStore({
   },
 });
 
-store.subscribe(() => {
-  saveToLocalStorage(store.getState().tasks.newTask);
-});
+store.subscribe(() => saveToLocalStorage(store.getState().tasks));

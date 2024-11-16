@@ -5,36 +5,22 @@ export interface ITask {
   editTask: boolean;
 }
 
-export interface IProps {
-  setTaskArray: Dispatch<SetStateAction<ITask[]>>;
-  taskArray: ITask[];
-  filterTasks: "done" | "all" | "active";
-}
-
 export interface IStoreTask {
   newTask: ITask[];
 }
 
 export interface IRootState {
-  tasks: {
-    newTask: ITask[];
-  };
-}
-
-export interface IProps {
-  setTaskArray: Dispatch<SetStateAction<ITask[]>>;
+  tasks: IStoreTask;
 }
 
 export type FilterType = "done" | "all" | "active";
 
 export interface FilterInterface {
-  filter: FilterType;
+  filter: "done" | "all" | "active";
 }
 
 export interface FilterInterfaceSelect {
-  filters: {
-    filter: FilterType;
-  };
+  filters: FilterInterface;
 }
 
 export type AppDispatch = typeof store.dispatch;
